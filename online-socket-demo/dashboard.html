@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<h1>areej</h1>
+<div id="chat">
+    <form v-on:submit="send ">
+        <ul>
+            <li v-for="item in messages">
+                {{ item }}
+            </li>
+        </ul>
+        <input type="text " v-model="message ">
+        <button>Send</button>
+    </form>
+</div>
+
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js "
+        integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H "
+        crossorigin="anonymous "></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js "></script>
+
+
+<script>
+    var socket = io();
+    new Vue({
+        el: '#chat',
+        data: {
+            message: '',
+            messages: []
+        },
+        mounted: function () {
+            console.log("adsaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            socket.on('chat.message', function (message) {
+                this.messages.push(message);
+                console.log(message);
+            }.bind(this))
+        },
+        methods: {
+            send: function (e) {
+                alert(this.message);
+                socket.emit('chat.message', this.message);
+
+                e.preventDefault();
+            }
+        }
+    });
+    socket.emit('login', {
+        'id': Math.random(),
+        'name': "areej",
+    });
+    socket.on('dashboard_update', (data) => {
+        console.log(data);
+    });
+</script>
+
+</body>
+
+</html>

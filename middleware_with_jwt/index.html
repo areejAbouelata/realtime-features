@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<h1>areej</h1>
+<div id="chat">
+
+</div>
+
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js "
+        integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H "
+        crossorigin="anonymous "></script>
+
+
+<script>
+    var socket = io({
+        auth: {
+            "token": "sdsdsdsd",
+            "user_type": "client"
+        }
+    });
+
+    socket.emit('hi', "hi  i am the owner ");
+    socket.on("connect_error", (err) => {
+        console.log(err);
+    });
+</script>
+
+</body>
+
+</html>
